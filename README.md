@@ -15,7 +15,7 @@ work faster on public tenders.
 ---
 
 ## 1. Quick start
-
+```bash
 # Clone and enter the repo
 git clone https://github.com/BenoitCou/tender-synth.git
 cd tender-synth
@@ -33,9 +33,10 @@ cp .env.example .env          # then edit with your keys
 # ➋ Launch the UI ----------------------------------------
 streamlit run app.py
 ---
+```
 
 ## 2. Folder structure
-
+```
 ├── app.py # Streamlit front-end
 ├── chat_backend.py # Thin wrapper around the RAG chain
 ├── summariser.py # High-level orchestration (lots, summaries, docx)
@@ -48,6 +49,7 @@ streamlit run app.py
 ├── requirements.txt
 └── .env.example # ← copy to .env and fill in
 ---
+```
 
 ## 3. Configuration – `.env` file 🔑
 

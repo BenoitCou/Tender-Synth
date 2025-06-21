@@ -34,6 +34,7 @@ cp .env.example .env          # then edit with your keys
 # ➋ Launch the UI ----------------------------------------
 streamlit run app.py
 ---
+```bash
 
 ## 2. Folder structure
 

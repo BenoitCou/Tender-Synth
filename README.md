@@ -33,3 +33,34 @@ cp .env.example .env          # then edit with your keys
 
 # ➋ Launch the UI ----------------------------------------
 streamlit run app.py
+
+
+## 2. Folder structure
+
+├── app.py # Streamlit front-end
+├── chat_backend.py # Thin wrapper around the RAG chain
+├── summariser.py # High-level orchestration (lots, summaries, docx)
+├── vectorstore_builder.py # FAISS + image captioning helpers
+├── loaders.py # Format-agnostic text extraction
+├── lexicon.py # Controlled vocabulary & custom re-ranker
+├── image_utils.py
+├── token_utils.py
+├── config.py # Centralised settings + .env loader
+├── requirements.txt
+└── .env.example # ← copy to .env and fill in
+
+
+---
+
+## 3. Configuration – `.env` file 🔑
+
+Create a `.env` file at the repository root (already in `.gitignore`) and add:
+
+| Variable name        | Example value                       | Mandatory | Description |
+|----------------------|-------------------------------------|-----------|-------------|
+| `OPENAI_API_KEY`     | `sk-xxxxxxxxxxxxxxxx`          | ✅ | GPT-4o-mini + embeddings + image captions |
+| `MISTRAL_API_KEY`    | `abcdefghijklxxxxxx`          | ✅ | Mistral-small chat + embeddings |
+| `CLIENT`             | `Company`                  | ✅ | Company name (shown in prompts) |
+| `CLIENT_DESCRIPTION` | *Long French paragraph…*            | ✅ | Expertise of the company, fed to the LLM |
+| `LEXICON_PATH`       | `./lexique.docx`                    | ✅ | DOCX file with synonyms & exclusions, specific to the context of the client |
+

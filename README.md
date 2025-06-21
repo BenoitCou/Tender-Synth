@@ -33,7 +33,7 @@ cp .env.example .env          # then edit with your keys
 
 # ➋ Launch the UI ----------------------------------------
 streamlit run app.py
-
+---
 
 ## 2. Folder structure
 
@@ -48,8 +48,6 @@ streamlit run app.py
 ├── config.py # Centralised settings + .env loader
 ├── requirements.txt
 └── .env.example # ← copy to .env and fill in
-
-
 ---
 
 ## 3. Configuration – `.env` file 🔑

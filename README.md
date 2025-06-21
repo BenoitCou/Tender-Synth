@@ -18,7 +18,7 @@ work faster on public tenders.
 
 ```bash
 # Clone and enter the repo
-git clone https://github.com/your-org/tender-synth.git
+git clone https://github.com/BenoitCou/tender-synth.git
 cd tender-synth
 
 # Create a virtual env (recommended)

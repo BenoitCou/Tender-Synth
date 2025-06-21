@@ -12,11 +12,6 @@ work faster on public tenders.
   chain
 - **Caption** relevant images
 - Everything happens in **French** because that is the client’s language 🥖
-
-<p align="center">
-  <img src="docs/screenshot.png" width="600" alt="Streamlit UI demo">
-</p>
-
 ---
 
 ## 1. Quick start

@@ -14,6 +14,7 @@ import base64
 import fitz
 import pytesseract
 from PIL import Image
+import numpy as np
 
 from langchain.vectorstores import FAISS
 from langchain.docstore.document import Document as LC_Document
@@ -23,6 +24,8 @@ from openai import OpenAI
 from lexicon import normalize, ALL_TERMS, rerank
 from loaders import load_docx, load_excel
 from config  import OPENAI_API_KEY
+from token_utils import split_text, count_tokens, encoding
+
 
 client_openai = OpenAI(api_key=OPENAI_API_KEY)
 
@@ -183,7 +186,7 @@ def build_vectorstore(folder_path: str, embeddings, min_width: int = 400, min_he
 
 def generate_image_descriptions(query: str, vectorstore):
     """
-    Retrieve pages relevant to query and let GPT-4o-mini generate a short
+    Retrieve pages relevant to query and let the LLM generate a short
     French title for each unique image.
 
     The LLM is instructed to return “NONE” for non-relevant pictures; these

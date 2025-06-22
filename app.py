@@ -63,6 +63,7 @@ def initialize_embeddings():
     if st.session_state.llm_choice == "🇫🇷 ChatMistralAI (mistral-small-latest)":
         # TO IMPROVE: Use and adapt MistralAIEmbeddings
         #return MistralAIEmbeddings(model="mistral-embed", mistral_api_key=MISTRAL_API_KEY)
+        
         return OpenAIEmbeddings(chunk_size=1000)
     
     elif st.session_state.llm_choice == "🇺🇸 ChatOpenAI (gpt-4o-mini)":

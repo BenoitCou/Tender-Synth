@@ -7,11 +7,10 @@ work faster on public tenders.
 - **Upload** any mix of PDF, Word (.docx) or Excel (.xls/.xlsx) documents  
   (CCTP, lot list, drawings, price schedules, …)
 - **Detect** which lots really match the company’s skills  
-- **Summarise** hundreds of pages into a clean Word report
+- **Summarise** hundreds of pages into a clean Word report, including images with relevant captions
 - **Chat** with the documents through a Retrieval-Augmented Generation
-  chain
-- **Caption** relevant images
-- Everything happens in **French** because that is the client’s language 🥖
+  chain that includes sources qnd relevant images
+- Everything happens in **French** because that is the client’s language 
 ---
 
 ## 1. Quick start

@@ -27,7 +27,7 @@ source .venv/bin/activate
 pip install -r requirements.txt
 
 # ➊ Add your secrets -------------------------------------
-cp .env.example .env          # then edit with your keys
+New-Item -Path .env -ItemType File -Force          # then edit with your keys
 
 # ➋ Launch the UI ----------------------------------------
 streamlit run app.py

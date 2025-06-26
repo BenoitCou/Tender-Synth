@@ -45,8 +45,7 @@ streamlit run app.py
 ├── image_utils.py
 ├── token_utils.py
 ├── config.py # Centralised settings + .env loader
-├── requirements.txt
-└── .env.example # ← copy to .env and fill in
+└── requirements.txt
 ---
 ```
 

@@ -1,8 +1,8 @@
 # Tender-Synth
 
-**Tender-Synth** is a Streamlit
-application that helps French restoration company 
-work faster on public tenders.
+**Tender-Synth** is a Streamlit application that helps companies work faster on public tenders.
+
+Originally developed for a French heritage restoration company, this project can be easily adapted to other sectors.
 
 - **Upload** any mix of PDF, Word (.docx) or Excel (.xls/.xlsx) documents  
   (CCTP, lot list, drawings, price schedules, …)
@@ -10,7 +10,6 @@ work faster on public tenders.
 - **Summarise** hundreds of pages into a clean Word report, including images with relevant captions
 - **Chat** with the documents through a Retrieval-Augmented Generation
   chain that includes sources qnd relevant images
-- Everything happens in **French** because that is the client’s language 
 ---
 
 ## 1. Quick start

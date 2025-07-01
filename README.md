@@ -9,7 +9,8 @@ Originally developed for a French heritage restoration company, this project can
 - **Detect** which lots really match the company’s skills  
 - **Summarise** hundreds of pages into a clean Word report, including images with relevant captions
 - **Chat** with the documents through a Retrieval-Augmented Generation
-  chain that includes sources qnd relevant images
+  chain that includes sources and relevant images. You can specify a list of words and expressions for the ChatBot to distinguish.
+
 ---
 
 ## 1. Quick start

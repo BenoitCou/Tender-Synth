@@ -1,4 +1,4 @@
-# Tender-Synth 📄🔍
+# Tender-Synth
 
 **Tender-Synth** is a Streamlit
 application that helps French restoration company 

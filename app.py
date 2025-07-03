@@ -6,6 +6,7 @@ Launch with:
 
 import os
 import io
+import re
 import tempfile
 import summariser
 import streamlit as st
@@ -60,13 +61,13 @@ def initialize_embeddings():
     Uses the model name stored in *st.session_state.llm_choice*.
     """
 
-    if st.session_state.llm_choice == "🇫🇷 ChatMistralAI (mistral-small-latest)":
+    if st.session_state.llm_choice == "🇫🇷 MistralAI (Mistral Small & Medium) ":
         # TO IMPROVE: Use and adapt MistralAIEmbeddings
         #return MistralAIEmbeddings(model="mistral-embed", mistral_api_key=MISTRAL_API_KEY)
         
         return OpenAIEmbeddings(chunk_size=1000)
     
-    elif st.session_state.llm_choice == "🇺🇸 ChatOpenAI (gpt-4o-mini)":
+    elif st.session_state.llm_choice == "🇺🇸 OpenAI (GPT 4.1 Nano & Mini)":
         return OpenAIEmbeddings(chunk_size=1000)
     
     else:
@@ -78,30 +79,48 @@ def initialize_llm():
     Instantiate the chat model chosen by the user and
     store token-related limits in session state.
     """
-    if st.session_state.llm_choice == "🇫🇷 ChatMistralAI (mistral-small-latest)":
+    if st.session_state.llm_choice == "🇫🇷 MistralAI (Mistral Small & Medium) ":
 
         st.session_state.encoding = encoding
         st.session_state.max_tokens = 29000
         st.session_state.overlap = 1000
 
-        return ChatMistralAI(
+        chat_llm = ChatMistralAI(
+            model="mistral-medium-latest",
+            temperature=0.2,
+            mistral_api_key=MISTRAL_API_KEY, 
+            timeout=180, 
+            max_retries=10
+        )
+
+        summarizer_llm = ChatMistralAI(
             model="mistral-small-latest",
             temperature=0.2,
             mistral_api_key=MISTRAL_API_KEY, 
             timeout=180, 
             max_retries=10
         )
+
+        return (chat_llm, summarizer_llm)
     
-    elif st.session_state.llm_choice == "🇺🇸 ChatOpenAI (gpt-4o-mini)":
+    elif st.session_state.llm_choice == "🇺🇸 OpenAI (GPT 4.1 Nano & Mini)":
 
         st.session_state.encoding = encoding
         st.session_state.max_tokens = 100000
         st.session_state.overlap = 5000
 
-        return ChatOpenAI(
-            model_name="gpt-4o-mini", 
+        chat_llm = ChatOpenAI(
+            model_name="gpt-4.1-mini", 
             temperature=0.2
             )
+        
+        summarizer_llm = ChatOpenAI(
+            model_name="gpt-4.1-nano", 
+            temperature=0.2
+            )
+
+        return (chat_llm, summarizer_llm)
+
     
     else:
         st.error("Aucun modèle LLM n'a été sélectionné.")
@@ -120,7 +139,7 @@ def show_llm_choice_modal() -> None:
 
     choice = st.radio(
         "Choisissez le modèle LLM :",
-        ["🇫🇷 ChatMistralAI (mistral-small-latest)", "🇺🇸 ChatOpenAI (gpt-4o-mini)"],
+        ["🇫🇷 MistralAI (Mistral Small & Medium) ", "🇺🇸 OpenAI (GPT 4.1 Nano & Mini)"],
         key="llm_choice_modal"
     )
 
@@ -167,8 +186,8 @@ if st.session_state.llm_choice is None:
     st.stop()
 
 if not st.session_state.llm_initialized:
-    st.session_state.llm = initialize_llm()
-    summariser.set_llm(st.session_state.llm)
+    st.session_state.llm = initialize_llm()[0]
+    summariser.set_llm(initialize_llm()[1])
     st.session_state.llm_initialized = True
 
 if not st.session_state.embeddings_initialized:
@@ -356,6 +375,7 @@ with left_col:
 
 # Centre column – chat interface -------------------------------------------
 
+
 with center_col:
 
     st.header("Dialogue avec les documents")
@@ -370,4 +390,3 @@ with center_col:
         key="question_input",
         on_change=submit_question
     )
-

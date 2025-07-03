@@ -19,10 +19,6 @@ Originally developed for a French heritage restoration company, this project can
 git clone https://github.com/BenoitCou/tender-synth.git
 cd tender-synth
 
-# Create a virtual env (recommended)
-python -m venv .venv
-source .venv/bin/activate
-
 # Install dependencies
 pip install -r requirements.txt
 

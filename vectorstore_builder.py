@@ -12,7 +12,8 @@ import hashlib
 import base64
 
 import fitz
-import pytesseract
+#import pytesseract
+import easyocr
 from PIL import Image
 import numpy as np
 
@@ -28,6 +29,7 @@ from token_utils import split_text, count_tokens, encoding
 
 
 client_openai = OpenAI(api_key=OPENAI_API_KEY)
+reader = easyocr.Reader(['fr'], gpu=False)
 
 def build_vectorstore(folder_path: str, embeddings, min_width: int = 400, min_height: int = 400, chunk_size: int = 2048, chunk_overlap: int = 200, drawings_threshold: int = 500,):
     """
@@ -74,9 +76,11 @@ def build_vectorstore(folder_path: str, embeddings, min_width: int = 400, min_he
                 text = page.get_text().strip()
                 if not text:
                     pix = page.get_pixmap()
-                    text = pytesseract.image_to_string(
-                        Image.frombytes("RGB", (pix.width, pix.height), pix.samples)
-                    )
+                    #text = pytesseract.image_to_string(Image.frombytes("RGB", (pix.width, pix.height), pix.samples))
+                    image = Image.frombytes("RGB", (pix.width, pix.height), pix.samples)
+                    image_np = np.array(image)
+                    results = reader.readtext(image_np)
+                    text = " ".join([res[1] for res in results]).strip()
 
                 # 2️. image harvesting with dedup + size filter
                 images, seen_hashes = [], set()

@@ -17,11 +17,15 @@ These functions are deliberately kept free of LangChain/Streamlit dependencies
 import re
 import fitz                     
 import pandas as pd
-import pytesseract
+#import pytesseract
+import easyocr
+import numpy as np
+
 from PIL import Image
 from docx import Document as DocxDocument
 from langchain.document_loaders import PyPDFLoader
 
+reader = easyocr.Reader(['fr'], gpu=False)
 
 def load_pdf(file_path: str) -> str:
     """
@@ -56,11 +60,14 @@ def load_pdf(file_path: str) -> str:
         for page in doc:
             pix = page.get_pixmap()
             img = Image.frombytes("RGB", (pix.width, pix.height), pix.samples)
-            page_text = pytesseract.image_to_string(img)
+            #page_text = pytesseract.image_to_string(img)
+            image_np = np.array(img)
+            results = reader.readtext(image_np)
+            page_text = " ".join([res[1] for res in results]).strip()
             ocr_texts.append(page_text)
 
         text = "\n".join(ocr_texts)
-    
+        print(text)
         return text
 
 def load_docx(file_path: str) -> str:
